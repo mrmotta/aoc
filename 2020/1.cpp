@@ -7,11 +7,11 @@ using namespace std;
 int main (int argc, char *argv[]) {
 
 	cout << endl
-		<< "+----------------+" << endl
-		<< "| Advent of Code |" << endl
-		<< "+----------------+" << endl
-		<< "|     Day 01     |" << endl
-		<< "+----------------+" << endl;
+		<< "+---------------------+" << endl
+		<< "| Advent of Code 2020 |" << endl
+		<< "+---------------------+" << endl
+		<< "|       Day #01       |" << endl
+		<< "+---------------------+" << endl;
 
 	// Checking arguments and opening file
 
@@ -45,7 +45,7 @@ int main (int argc, char *argv[]) {
 	
 	cout << "Processing input..." << endl;
 
-	// Bruteforce method O(n^2): checking every possible combination of two (order doesn't matter) untill I find the right one
+	// Bruteforce method: checking every possible combination of two (order doesn't matter) untill I find the right one
 
 	for (int index1 = 0; index1 < list.size(); index1 ++)
 		for (int index2 = index1 + 1; index2 < list.size(); index2 ++)
@@ -58,7 +58,7 @@ int main (int argc, char *argv[]) {
 	cout << "Results:" << endl;
 	cout << "- Part 1: " << results[0] << endl;
 
-	// Bruteforce method O(n^3): checking every possible combination of three (order doesn't matter) untill I find the right one
+	// Bruteforce method: checking every possible combination of three (order doesn't matter) untill I find the right one
 	
 	for (int index1 = 0; index1 < list.size(); index1 ++)
 		for (int index2 = index1 + 1; index2 < list.size(); index2 ++)
