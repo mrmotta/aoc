@@ -2,7 +2,7 @@
 
 ## Progress
 
-    [######--------------------------------------------] 12%
+    [########------------------------------------------] 16%
 
 ## Results
 
@@ -12,8 +12,8 @@ Day                                        | First part       | Second Part
 :----------------------------------------: | :--------------: | :--------------:
 [1](https://adventofcode.com/2020/day/1)   | `471019`         | `103927824`
 [2](https://adventofcode.com/2020/day/2)   | `643`            | `388`
-[3](https://adventofcode.com/2020/day/3)   | `216`            | `@ @ @`
-[4](https://adventofcode.com/2020/day/4)   |                  | 
+[3](https://adventofcode.com/2020/day/3)   | `216`            | `6708199680`
+[4](https://adventofcode.com/2020/day/4)   | `222`            | `140`
 [5](https://adventofcode.com/2020/day/5)   |                  | 
 [6](https://adventofcode.com/2020/day/6)   |                  | 
 [7](https://adventofcode.com/2020/day/7)   |                  | 
@@ -40,7 +40,7 @@ Day                                        | First part       | Second Part
 
 Each day has a separate file. If you want to compile a single file with GCC you can simply run the following command:
 
-    gcc input.cpp -O3 -lstdc++ -o output
+    g++ input.cpp -std=c++11 -O3 -o output
 
 ## Running
 

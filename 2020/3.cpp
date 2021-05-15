@@ -1,7 +1,6 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
@@ -72,17 +71,15 @@ int main (int argc, char *argv[]) {
 			if (currentPoint[index] >= length)
 				currentPoint[index] %= length;
 		}
-		// cout << row << ": " << treesCount[0] << " " << treesCount[1] << " " << treesCount[2] << " " << treesCount[3] << " " << treesCount[4] << " " << endl;
 	}
 
 	result[0] = treesCount[1];
-	result[1] = treesCount[0] * treesCount[1] * treesCount[2] * treesCount[3] * treesCount[4];
-
-	cout << treesCount[0] << " " << treesCount[1] << " " << treesCount[2] << " " << treesCount[3] << " " << treesCount[4] << " " << endl;
+	result[1] = (int64_t) treesCount[0] * treesCount[1] * treesCount[2] * treesCount[3] * treesCount[4];
 
 	cout << endl;
 	cout << "Results:" << endl;
 	cout << "- Part 1: " << result[0] << endl;
 	cout << "- Part 2: " << result[1] << endl << endl;
 
+	return 0;
 }

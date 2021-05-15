@@ -77,4 +77,5 @@ int main (int argc, char *argv[]) {
 	cout << "- Part 1: " << result[0] << endl;
 	cout << "- Part 2: " << result[1] << endl << endl;
 
+	return 0;
 }
