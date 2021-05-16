@@ -124,9 +124,11 @@ int main (int argc, char *argv[]) {
 	// Initializing passport
 	tmpPassport.intialize();
 
-	while (getline(input, tmpString)) {
+	while (getline(input, tmpString, '\n')) {
+		if (tmpString[tmpString.size()-1] == '\r')
+			tmpString = tmpString.substr(0, tmpString.size()-1);
 		// Checking if it's time to add it to the list or not
-		if (tmpString.size() > 1) {		// Unfortunately std::string::empty doesn't always work
+		if (!tmpString.empty()) {
 			// Figuring out what I've found
 			tmpIStringStream = (istringstream) tmpString;
 			while (tmpIStringStream >> tmpString)
