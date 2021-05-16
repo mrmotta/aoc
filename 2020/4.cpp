@@ -34,7 +34,7 @@ int main (int argc, char *argv[]) {
 
 	int64_t result[2] = {0};
 
-	class passport {
+	class passport_t {
 
 		public:							// Passport fields
 		int byr, iyr, eyr, hgt;
@@ -112,8 +112,8 @@ int main (int argc, char *argv[]) {
 			return true;
 		}
 	};
-	vector<passport> list;				// Passport list
-	passport tmpPassport;				// Temporary passport
+	vector<passport_t> list;			// Passport list
+	passport_t tmpPassport;				// Temporary passport
 
 	string tmpString;					// It has multiple purposes during the input process...
 	istringstream tmpIStringStream;		// like this one

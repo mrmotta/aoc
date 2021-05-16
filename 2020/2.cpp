@@ -38,10 +38,10 @@ int main (int argc, char *argv[]) {
 		int min, max;
 		char letter;
 		string password;
-	} policy;
+	} policy_t;
 
-	vector<policy> list;	// List of policies
-	policy tmpPolicy;		// Temporary policy
+	vector<policy_t> list;	// List of policies
+	policy_t tmpPolicy;		// Temporary policy
 	string tmp;				// Temporary string for reading
 	int letterNumber;		// Temporary number of letters in password
 
@@ -62,7 +62,7 @@ int main (int argc, char *argv[]) {
 	
 	cout << "Processing input..." << endl;
 
-	for (policy &currentPolicy: list) {
+	for (policy_t &currentPolicy: list) {
 		// Counting occurrences of the letter
 		letterNumber = count(currentPolicy.password.begin(), currentPolicy.password.end(), currentPolicy.letter);
 		if (letterNumber >= currentPolicy.min && letterNumber <= currentPolicy.max)
