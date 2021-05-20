@@ -45,7 +45,7 @@ int main (int argc, char *argv[]) {
 	cout << "Reading and parsing input..." << endl;
 
 	while (input >> tmp)
-		list.push_back(atoll(tmp.c_str()));
+		list.push_back(stoll(tmp));
 
 	input.close();
 	

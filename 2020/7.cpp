@@ -28,13 +28,13 @@ class bag_t {
 		line = line.substr(line.find(" bags contain")+14, line.size()-1);
 
 		while (line.find(",") != string::npos) {
-			tmp.number = atoi(&line[0]);
+			tmp.number = atoll(&line[0]);
 			tmp.bag = line.substr(2, line.find(" bag")-2);
 			line = line.substr(line.find(",")+2, line.size()-1);
 			innerBags.push_back(tmp);
 		};
 
-		tmp.number = atoi(&line[0]);
+		tmp.number = atoll(&line[0]);
 		tmp.bag = line.substr(2, line.find(" bag")-2);
 		innerBags.push_back(tmp);
 

@@ -28,7 +28,7 @@ class instruction_t {
 		else
 			operation = NOP;
 	}
-	void setArgument (string arg) { argument = atoi(arg.c_str()); }
+	void setArgument (string arg) { argument = stoll(arg); }
 };
 
 bool fix (int index, int64_t &result, bool change);

@@ -67,11 +67,11 @@ int main (int argc, char *argv[]) {
 		}
 
 		private:						// Specific setters
-		void setByr (string value) { byr = atoi(value.c_str()); }
-		void setIyr (string value) { iyr = atoi(value.c_str()); }
-		void setEyr (string value) { eyr = atoi(value.c_str()); }
+		void setByr (string value) { byr = stoll(value); }
+		void setIyr (string value) { iyr = stoll(value); }
+		void setEyr (string value) { eyr = stoll(value); }
 		void setHgt (string value) {
-			hgt = atoi(value.substr(0, value.size()-2).c_str());
+			hgt = stoll(value.substr(0, value.size()-2));
 			if (value.find("cm") != string::npos)
 				hgtCm = true;
 			else
