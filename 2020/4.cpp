@@ -71,11 +71,13 @@ int main (int argc, char *argv[]) {
 		void setIyr (string value) { iyr = stoll(value); }
 		void setEyr (string value) { eyr = stoll(value); }
 		void setHgt (string value) {
-			hgt = stoll(value.substr(0, value.size()-2));
-			if (value.find("cm") != string::npos)
+			if (value.find("cm") != string::npos) {
+				hgt = stoll(value.substr(0, value.size()-2));
 				hgtCm = true;
-			else
+			} else if (value.find("in") != string::npos) {
+				hgt = stoll(value.substr(0, value.size()-2));
 				hgtCm = false;
+			} else hgt = 0;				// In this way, also when there is no measure unit the field is marked as present
 		}
 
 		public:							// Utilities

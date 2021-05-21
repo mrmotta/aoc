@@ -40,7 +40,7 @@ Day                                        | First part       | Second Part
 
 Each day has a separate file. If you want to compile a single file with GCC you can simply run the following command:
 
-    g++ input.cpp -std=c++11 -O3 -o output
+    g++ input.cpp -std=c++2a -O3 -o output
 
 ## Running
 
