@@ -2,7 +2,7 @@
 
 ## Progress
 
-	[##########################------------------------] 52%
+	[############################----------------------] 56%
      
 
 ## Results
@@ -24,7 +24,7 @@ Day                                        | First part       | Second Part
 [11](https://adventofcode.com/2020/day/11) | `2468`           | `2214`
 [12](https://adventofcode.com/2020/day/12) | `1319`           | `62434`
 [13](https://adventofcode.com/2020/day/13) | `4782`           | `1118684865113056`
-[14](https://adventofcode.com/2020/day/14) |                  | 
+[14](https://adventofcode.com/2020/day/14) | `3059488894985`  | `2900994392308`
 [15](https://adventofcode.com/2020/day/15) |                  | 
 [16](https://adventofcode.com/2020/day/16) |                  | 
 [17](https://adventofcode.com/2020/day/17) |                  | 
