@@ -51,7 +51,7 @@ int main (int argc, char *argv[]) {
 	while (!input.eof()) {
 		input >> tmp;
 		tmpPolicy.min = stoll(tmp.substr(0, tmp.find("-")));
-		tmpPolicy.max = stoll(tmp.substr(tmp.find("-")+1, tmp.size()-1));
+		tmpPolicy.max = stoll(tmp.substr(tmp.find("-")+1, tmp.size()));
 		input >> tmp;
 		tmpPolicy.letter = tmp[0];
 		input >> tmpPolicy.password;

@@ -25,12 +25,12 @@ class bag_t {
 		if (line.find("no other bags") != string::npos)
 			return;
 		
-		line = line.substr(line.find(" bags contain")+14, line.size()-1);
+		line = line.substr(line.find(" bags contain")+14, line.size());
 
 		while (line.find(",") != string::npos) {
 			tmp.number = atoll(&line[0]);
 			tmp.bag = line.substr(2, line.find(" bag")-2);
-			line = line.substr(line.find(",")+2, line.size()-1);
+			line = line.substr(line.find(",")+2, line.size());
 			innerBags.push_back(tmp);
 		};
 
@@ -90,11 +90,6 @@ int main (int argc, char *argv[]) {
 	cout << "Reading and parsing input..." << endl;
 
 	while (getline(input, tmpLine, '\n')) {
-		if (tmpLine[tmpLine.size()-1] == '\r')
-			tmpLine = tmpLine.substr(0, tmpLine.size()-2);
-		else
-			tmpLine = tmpLine.substr(0, tmpLine.size()-1);
-		// Inserting the new bag
 		tmpBag.insert(tmpLine);
 		list.push_back(tmpBag);
 		tmpBag.clear();

@@ -47,7 +47,7 @@ class instruction_t {
 	int mask;					// Mask number, according the the order it appeared
 
 	public:						// Setters
-	void setAddress (string input) { address = stoll(input.substr(input.find("[")+1, input.size()-2)); }
+	void setAddress (string input) { address = stoll(input.substr(input.find("[")+1, input.size()-1)); }
 	void setAddress (mask_t newAddress) { address = newAddress.toInt(); }
 	void setValue (string input) { value = stoll(input); }
 	void setMask (int index) { mask = index; }

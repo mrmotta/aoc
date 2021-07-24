@@ -26,7 +26,7 @@ class list_t {
 
 		while (line.find(",") != string::npos) {
 			busNumber = line.substr(0, line.find(","));
-			line = line.substr(busNumber.size()+1, line.size()-1);
+			line = line.substr(busNumber.size()+1, line.size());
 			if (busNumber != "x") {
 				tmpBus.id = stoi(busNumber);
 				tmpBus.position = count;

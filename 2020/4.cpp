@@ -72,10 +72,10 @@ int main (int argc, char *argv[]) {
 		void setEyr (string value) { eyr = stoll(value); }
 		void setHgt (string value) {
 			if (value.find("cm") != string::npos) {
-				hgt = stoll(value.substr(0, value.size()-2));
+				hgt = stoll(value.substr(0, value.size()-1));
 				hgtCm = true;
 			} else if (value.find("in") != string::npos) {
-				hgt = stoll(value.substr(0, value.size()-2));
+				hgt = stoll(value.substr(0, value.size()-1));
 				hgtCm = false;
 			} else hgt = 0;				// In this way, also when there is no measure unit the field is marked as present
 		}
@@ -97,7 +97,7 @@ int main (int argc, char *argv[]) {
 		private:
 		bool checkHcl () {
 			if (hcl[0] != '#') return false;
-			for (char character: hcl.substr(1, hcl.size()-1))
+			for (char character: hcl.substr(1, hcl.size()))
 				if ((character < '0' || character > '9') && (character < 'a' || character > 'f')) return false;
 			return true;
 		}
@@ -134,7 +134,7 @@ int main (int argc, char *argv[]) {
 			// Figuring out what I've found
 			tmpIStringStream = (istringstream) tmpString;
 			while (tmpIStringStream >> tmpString)
-				tmpPassport.insertValue(tmpString.substr(0, tmpString.find(":")), tmpString.substr(tmpString.find(":")+1, tmpString.size()-1));
+				tmpPassport.insertValue(tmpString.substr(0, tmpString.find(":")), tmpString.substr(tmpString.find(":")+1, tmpString.size()));
 		} else {
 			list.push_back(tmpPassport);
 			// Reinitialising passport

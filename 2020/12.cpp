@@ -22,7 +22,7 @@ class instruction_t {
 			case 'R': action = RIGHT; break;
 			default: action = FORWARD;
 		}
-		value = stoi(instruction.substr(1, instruction.size()-1));
+		value = stoi(instruction.substr(1, instruction.size()));
 	}
 };
 

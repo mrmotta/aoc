@@ -81,7 +81,7 @@ int main (int argc, char *argv[]) {
 
 	while (line.find(",") != string::npos) {
 		tmpNumber = line.substr(0, line.find(","));
-		line = line.substr(tmpNumber.size()+1, line.size()-1);
+		line = line.substr(tmpNumber.size()+1, line.size());
 		list.insert(stoi(tmpNumber), index);
 		++ index;
 	}
