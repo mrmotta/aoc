@@ -8,10 +8,12 @@ using namespace std;
 typedef enum {ZERO, ONE, X} bitmask_t;
 
 class mask_t {
+
 	private:
 	bitmask_t mask[36];			// The mask itself
 
-	public:						// Mask setters: whole mask or specific position
+	public:
+	// Mask setters: whole mask or specific position
 	void setMask (string value) {
 		for (int index = 0; index < 36; ++ index)
 			switch (value[index]) {
@@ -20,12 +22,13 @@ class mask_t {
 				default: mask[index] = X;
 			}
 	}
+
 	void setMask (int index, bitmask_t value) { mask[index] = value; }
 
-	public:						// Mask getter
+	// Mask getter
 	bitmask_t getMask (int index) { return mask[index]; }
 
-	public:						// Converts an array of bits into an integer
+	// Converts an array of bits into an integer
 	int64_t toInt () {
 		int64_t multiplier = 1;
 		int64_t number = 0;
@@ -41,23 +44,30 @@ class mask_t {
 vector<mask_t> maskList;
 
 class instruction_t {
+
 	private:
 	int64_t address;			// Memory address
 	int64_t value;				// Value to store in memory
 	int mask;					// Mask number, according the the order it appeared
 
-	public:						// Setters
+	public:
+	// Setters
 	void setAddress (string input) { address = stoll(input.substr(input.find("[")+1, input.size()-1)); }
+
 	void setAddress (mask_t newAddress) { address = newAddress.toInt(); }
+
 	void setValue (string input) { value = stoll(input); }
+
 	void setMask (int index) { mask = index; }
 
-	public:						// Getters
+	// Getters
 	int64_t getAddress () { return address; }
+
 	int64_t getValue () { return value; }
+
 	int getMask () { return mask; }
 
-	public:						// Mix the value with the mask and gets the result
+	// Mix the value with the mask and gets the result
 	int64_t processValue () {
 		mask_t binaryValue = valueToMask();
 		mask_t original = binaryValue;
@@ -67,7 +77,7 @@ class instruction_t {
 		return binaryValue.toInt();
 	}
 
-	public:						// Converts the value into an array of bits
+	// Converts the value into an array of bits
 	mask_t valueToMask() {
 		mask_t resultingMask;
 		int64_t currentValue = value;
@@ -81,7 +91,7 @@ class instruction_t {
 		return resultingMask;
 	}
 
-	public:						// Converts the memory address into an array of bits
+	// Converts the memory address into an array of bits
 	mask_t addressToMask() {
 		mask_t resultingMask;
 		int64_t currentValue = address;

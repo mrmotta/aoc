@@ -5,6 +5,19 @@
 
 using namespace std;
 
+class adaptor_t {
+
+	public:
+	int output;					// The number itself
+	int64_t cost;				// The cost used for part 2
+
+	public:						// General setter
+	void set (string number) {
+		output = stoi(number);
+		cost = 0;
+	}
+};
+
 int main (int argc, char *argv[]) {
 
 	cout << endl
@@ -33,18 +46,6 @@ int main (int argc, char *argv[]) {
 	// Preparing the environment for the execution
 
 	int64_t result[2] = {0};
-
-	class adaptor_t {
-		public:
-		int output;					// The number itself
-		int64_t cost;				// The cost used for part 2
-
-		public:						// General setter
-		void set (string number) {
-			output = stoi(number);
-			cost = 0;
-		}
-	};
 
 	vector<adaptor_t> list;
 

@@ -5,6 +5,96 @@
 
 using namespace std;
 
+class passport_t {
+
+	public:							// Passport fields
+	int byr, iyr, eyr, hgt;
+	bool hgtCm;
+	string hcl, ecl, pid, cid;
+
+	public:
+	// Initializer
+	void intialize (void) {
+		byr = -1;
+		iyr = -1;
+		eyr = -1;
+		hgt = -1;
+		hgtCm = false;
+		hcl = "";
+		ecl = "";
+		pid = "";
+		cid = "";
+	}
+
+	// General setter
+	void insertValue (string key, string value) {
+		if (key == "byr") setByr(value);
+		else if (key == "iyr") setIyr(value);
+		else if (key == "eyr") setEyr(value);
+		else if (key == "hgt") setHgt(value);
+		else if (key == "hcl") hcl = value;
+		else if (key == "ecl") ecl = value;
+		else if (key == "pid") pid = value;
+		else cid = value;
+	}
+
+	private:
+	// Specific setters
+	void setByr (string value) { byr = stoll(value); }
+
+	void setIyr (string value) { iyr = stoll(value); }
+
+	void setEyr (string value) { eyr = stoll(value); }
+
+	void setHgt (string value) {
+		if (value.find("cm") != string::npos) {
+			hgt = stoll(value.substr(0, value.size()-1));
+			hgtCm = true;
+		} else if (value.find("in") != string::npos) {
+			hgt = stoll(value.substr(0, value.size()-1));
+			hgtCm = false;
+		} else hgt = 0;				// In this way, also when there is no measure unit the field is marked as present
+	}
+
+	public:
+	// Utilities
+	bool hasAllRequiredFields() { return byr != -1 && iyr != -1 && eyr != -1 && hgt != -1 && !hcl.empty() && !ecl.empty() && !pid.empty(); }
+
+	bool isValid() {
+		if (byr < 1920 || byr > 2002) return false;
+		if (iyr < 2010 || iyr > 2020) return false;
+		if (eyr < 2020 || eyr > 2030) return false;
+		if (hgtCm && (hgt < 150 || hgt > 193)) return false;
+		if (!hgtCm && (hgt < 59 || hgt > 76)) return false;
+		if (!checkHcl()) return false;
+		if (!checkEcl()) return false;
+		if (!checkPid()) return false;
+		return true;
+	}
+
+	private:
+	bool checkHcl () {
+		if (hcl[0] != '#') return false;
+		for (char character: hcl.substr(1, hcl.size()))
+			if ((character < '0' || character > '9') && (character < 'a' || character > 'f')) return false;
+		return true;
+	}
+
+	char colorList[7][4] = {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"};
+	bool checkEcl () {
+		for (int index = 0; index < 7; ++ index)
+			if (ecl == colorList[index]) return true;
+		return false;
+	}
+
+	bool checkPid () {
+		if (pid.size() != 9) return false;
+		for (char number: pid)
+			if (number < '0' || number > '9') return false;
+		return true;
+	}
+};
+
 int main (int argc, char *argv[]) {
 
 	cout << endl
@@ -34,86 +124,6 @@ int main (int argc, char *argv[]) {
 
 	int64_t result[2] = {0};
 
-	class passport_t {
-
-		public:							// Passport fields
-		int byr, iyr, eyr, hgt;
-		bool hgtCm;
-		string hcl, ecl, pid, cid;
-
-		public:							// Initializer
-		void intialize (void) {
-			byr = -1;
-			iyr = -1;
-			eyr = -1;
-			hgt = -1;
-			hgtCm = false;
-			hcl = "";
-			ecl = "";
-			pid = "";
-			cid = "";
-		}
-
-		public:							// General setter
-		void insertValue (string key, string value) {
-			if (key == "byr") setByr(value);
-			else if (key == "iyr") setIyr(value);
-			else if (key == "eyr") setEyr(value);
-			else if (key == "hgt") setHgt(value);
-			else if (key == "hcl") hcl = value;
-			else if (key == "ecl") ecl = value;
-			else if (key == "pid") pid = value;
-			else cid = value;
-		}
-
-		private:						// Specific setters
-		void setByr (string value) { byr = stoll(value); }
-		void setIyr (string value) { iyr = stoll(value); }
-		void setEyr (string value) { eyr = stoll(value); }
-		void setHgt (string value) {
-			if (value.find("cm") != string::npos) {
-				hgt = stoll(value.substr(0, value.size()-1));
-				hgtCm = true;
-			} else if (value.find("in") != string::npos) {
-				hgt = stoll(value.substr(0, value.size()-1));
-				hgtCm = false;
-			} else hgt = 0;				// In this way, also when there is no measure unit the field is marked as present
-		}
-
-		public:							// Utilities
-		bool hasAllRequiredFields() { return byr != -1 && iyr != -1 && eyr != -1 && hgt != -1 && !hcl.empty() && !ecl.empty() && !pid.empty(); }
-		bool isValid() {
-			if (byr < 1920 || byr > 2002) return false;
-			if (iyr < 2010 || iyr > 2020) return false;
-			if (eyr < 2020 || eyr > 2030) return false;
-			if (hgtCm && (hgt < 150 || hgt > 193)) return false;
-			if (!hgtCm && (hgt < 59 || hgt > 76)) return false;
-			if (!checkHcl()) return false;
-			if (!checkEcl()) return false;
-			if (!checkPid()) return false;
-			return true;
-		}
-
-		private:
-		bool checkHcl () {
-			if (hcl[0] != '#') return false;
-			for (char character: hcl.substr(1, hcl.size()))
-				if ((character < '0' || character > '9') && (character < 'a' || character > 'f')) return false;
-			return true;
-		}
-		char colorList[7][4] = {"amb", "blu", "brn", "gry", "grn", "hzl", "oth"};
-		bool checkEcl () {
-			for (int index = 0; index < 7; ++ index)
-				if (ecl == colorList[index]) return true;
-			return false;
-		}
-		bool checkPid () {
-			if (pid.size() != 9) return false;
-			for (char number: pid)
-				if (number < '0' || number > '9') return false;
-			return true;
-		}
-	};
 	vector<passport_t> list;			// Passport list
 	passport_t tmpPassport;				// Temporary passport
 

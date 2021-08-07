@@ -5,11 +5,13 @@
 using namespace std;
 
 class cell_t {
+
 	private:					// Cell data
 	bool seat;
 	bool occupied;
 
-	public:						// Setters
+	public:
+	// Setters
 	void set (char cell) {
 		if (cell == '.') {
 			seat = false;
@@ -22,10 +24,12 @@ class cell_t {
 				occupied = false;
 		}
 	}
+
 	void changeState () { occupied = !occupied; }
 
-	public:						// Getters
+	// Getters
 	bool isSeat () { return seat; }
+
 	bool isOccupied () { return occupied; }
 };
 

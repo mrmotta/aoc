@@ -6,6 +6,7 @@
 using namespace std;
 
 class field_t {
+
 	private:
 	typedef struct {
 		int min;
@@ -32,6 +33,7 @@ class field_t {
 };
 
 class ticket_t {
+
 	private:
 	vector<int> fields;
 	bool valid;
@@ -75,6 +77,7 @@ class ticket_t {
 };
 
 class match_t {
+
 	private:
 	string field;
 	vector<int> matches;

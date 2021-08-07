@@ -8,6 +8,7 @@
 using namespace std;
 
 class list_t {
+
 	private:
 	vector<int32_t> list;
 	int32_t lastNumber;

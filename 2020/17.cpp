@@ -8,10 +8,13 @@
 using namespace std;
 
 class dimensions_t {
+
+	private:
 	typedef struct {
 		int min;
 		int max;
 	} coordinate_t;
+
 	public:
 	coordinate_t x;
 	coordinate_t y;
@@ -76,11 +79,16 @@ class map4d_t {
 };
 
 class map3d_t : public map4d_t {
+
 	public:
 	void setActive (int x, int y) { map4d_t::setActive(x, y); }
+
 	void setActive (int x, int y, int z) { map4d_t::setActive(x, y, z, 0); }
+
 	void setInactive (int x, int y, int z) { map4d_t::setInactive(x, y, z, 0); }
+
 	bool isActive (int x, int y, int z) { return map4d_t::isActive(x, y, z, 0); }
+
 	int process (int x, int y, int z) {
 		int neighbors = 0;
 		for (int delta_x = -1; delta_x <= 1; ++ delta_x)

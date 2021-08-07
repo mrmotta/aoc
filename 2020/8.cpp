@@ -7,6 +7,7 @@ using namespace std;
 typedef enum {ACC, JMP, NOP} operation_t;
 
 class instruction_t {
+
 	public:
 	operation_t operation;		// The operation type
 	int argument;				// The argument itself
@@ -19,7 +20,8 @@ class instruction_t {
 		executed = false;
 	}
 
-	private:					// Setters
+	private:
+	// Setters
 	void setOperation (string op)  {
 		if (op == "acc")
 			operation = ACC;
@@ -28,6 +30,7 @@ class instruction_t {
 		else
 			operation = NOP;
 	}
+
 	void setArgument (string arg) { argument = stoll(arg); }
 };
 

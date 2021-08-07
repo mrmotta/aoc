@@ -12,11 +12,13 @@ typedef struct {					// Just to make things a little bit easier
 } innerBag_t;
 
 class bag_t {
+
 	public:
 	string bag;						// The bag itself
 	vector<innerBag_t> innerBags;	// All its inner bags (if any)
 
-	public:							// Setter
+	public:
+	// Setter
 	void insert (string line) {
 
 		innerBag_t tmp;
@@ -44,7 +46,7 @@ class bag_t {
 			});
 	}
 
-	public:							// Resetting the list
+	// Resetting the list
 	void clear () { innerBags.clear(); }
 };
 

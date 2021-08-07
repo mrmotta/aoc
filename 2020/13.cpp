@@ -6,6 +6,7 @@
 using namespace std;
 
 class list_t {
+
 	private:					// Data to store
 	typedef struct {
 		int id;
@@ -14,7 +15,8 @@ class list_t {
 	int64_t timestamp;
 	vector<bus_t> bus;
 
-	public:						// Setter
+	public:
+	// Setter
 	void insert (ifstream &input) {
 		string line, busNumber;
 		bus_t tmpBus;
@@ -42,10 +44,13 @@ class list_t {
 		}
 	}
 
-	public:						// Getters and utilities
+	// Getters and utilities
 	int64_t getTimestamp () { return timestamp; }
+
 	int size () { return bus.size(); };
+
 	int getId (int index) { return bus[index].id; }
+
 	int getPosition (int index) { return bus[index].position; }
 };
 

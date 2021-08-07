@@ -6,6 +6,67 @@
 
 using namespace std;
 
+class groupAnswers_t {
+
+	private:						// Answers set
+	vector<string> group;
+
+	public:
+	// Getter and reset
+	vector<string> getGroup () { return group; }
+
+	void clear () { group.clear(); }
+
+	// Add and sort algorithms
+	void addAnswers (string answers) {
+		sort(answers.begin(), answers.end());
+		group.push_back(answers);
+	}
+
+	void sortGroup () {
+		sort(group.begin(), group.end(),
+			[] (string votes1, string votes2) -> bool {
+				return votes1.size() < votes2.size();
+			});
+	}
+
+	// Votes counting
+	int anyone () {
+		int sum = 0;
+		bool totalVotes[26] = {false};
+		for (string person: group)
+			for (char vote: person)
+				totalVotes[vote - 'a'] = true;
+		for (bool vote: totalVotes)
+			if (vote) ++ sum;
+		return sum;
+	}
+
+	int everyone () {
+		// If there's only one person in the group it's easy
+		if (group.size() == 1)
+			return group[0].size();
+		
+		// Otherwise let's do something else
+		int sum = 0;
+		string referencePerson = group[0];
+		for (char referenceVote: referencePerson)
+			if (checkPresence(referenceVote))
+				++ sum;
+		
+		return sum;
+	}
+
+	private:
+	// Simply checking if everyone has that vote
+	bool checkPresence (char referenceVote) {
+		for (int index = 1; index < group.size(); ++ index)
+			if (!binary_search(group[index].begin(), group[index].end(), referenceVote))
+				return false;
+		return true;
+	}
+};
+
 int main (int argc, char *argv[]) {
 
 	cout << endl
@@ -35,60 +96,6 @@ int main (int argc, char *argv[]) {
 
 	int64_t result[2] = {0};
 
-	class groupAnswers_t {
-		private:						// Answers set
-		vector<string> group;
-
-		public:							// Getter and reset
-		vector<string> getGroup () { return group; }
-		void clear () { group.clear(); }
-
-		public:							// Add and sort algorithms
-		void addAnswers (string answers) {
-			sort(answers.begin(), answers.end());
-			group.push_back(answers);
-		}
-		void sortGroup () {
-			sort(group.begin(), group.end(),
-				[] (string votes1, string votes2) -> bool {
-					return votes1.size() < votes2.size();
-				});
-		}
-
-		public:							// Votes counting
-		int anyone () {
-			int sum = 0;
-			bool totalVotes[26] = {false};
-			for (string person: group)
-				for (char vote: person)
-					totalVotes[vote - 'a'] = true;
-			for (bool vote: totalVotes)
-				if (vote) ++ sum;
-			return sum;
-		}
-		int everyone () {
-			// If there's only one person in the group it's easy
-			if (group.size() == 1)
-				return group[0].size();
-			
-			// Otherwise let's do something else
-			int sum = 0;
-			string referencePerson = group[0];
-			for (char referenceVote: referencePerson)
-				if (checkPresence(referenceVote))
-					++ sum;
-			
-			return sum;
-		}
-
-		private:						// Simply checking if everyone has that vote
-		bool checkPresence (char referenceVote) {
-			for (int index = 1; index < group.size(); ++ index)
-				if (!binary_search(group[index].begin(), group[index].end(), referenceVote))
-					return false;
-			return true;
-		}
-	};
 	vector<groupAnswers_t> list;		// List of grous answers
 
 	groupAnswers_t tmpGroup;			// Temporary customs declaration form

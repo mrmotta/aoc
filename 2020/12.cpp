@@ -7,11 +7,13 @@ using namespace std;
 typedef enum {NORTH, EAST, SOUTH, WEST, LEFT, RIGHT, FORWARD} action_t;
 
 class instruction_t {
+
 	public:
 	action_t action;			// The action itself
 	int value;					// The value related
 
-	public:						// Setter	
+	public:
+	// Setter	
 	void insert (string instruction) {
 		switch (instruction[0]) {
 			case 'N': action = NORTH; break;
@@ -25,8 +27,6 @@ class instruction_t {
 		value = stoi(instruction.substr(1, instruction.size()));
 	}
 };
-
-vector<instruction_t> list;
 
 int main (int argc, char *argv[]) {
 
@@ -57,6 +57,7 @@ int main (int argc, char *argv[]) {
 
 	int64_t result[2] = {0};
 
+	vector<instruction_t> list;
 	string tmpString;				// Temporary string used to parse the input
 	instruction_t tmpInstruction;	// Temporary instruction used to parse the 
 	action_t facing = EAST;			// Starting facing direction
