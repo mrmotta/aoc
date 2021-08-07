@@ -9,12 +9,10 @@ typedef enum {ZERO, ONE, X} bitmask_t;
 
 class mask_t {
 
-	private:
-	bitmask_t mask[36];			// The mask itself
-
 	public:
-	// Mask setters: whole mask or specific position
-	void setMask (string value) {
+	mask_t () {}
+
+	mask_t (string value) {
 		for (int index = 0; index < 36; ++ index)
 			switch (value[index]) {
 				case '0': mask[index] = ZERO; break;
@@ -23,6 +21,11 @@ class mask_t {
 			}
 	}
 
+	private:
+	bitmask_t mask[36];			// The mask itself
+
+	public:
+	// Mask setter
 	void setMask (int index, bitmask_t value) { mask[index] = value; }
 
 	// Mask getter
@@ -156,8 +159,7 @@ int main (int argc, char *argv[]) {
 			input >> tmpString;
 			// Getting the mask and inserting it
 			input >> tmpString;
-			tmpMask.setMask(tmpString);
-			maskList.push_back(tmpMask);
+			maskList.push_back(mask_t(tmpString));
 			++ maskNumber;
 		} else {
 			// So this is a memory address

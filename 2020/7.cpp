@@ -14,12 +14,7 @@ typedef struct {					// Just to make things a little bit easier
 class bag_t {
 
 	public:
-	string bag;						// The bag itself
-	vector<innerBag_t> innerBags;	// All its inner bags (if any)
-
-	public:
-	// Setter
-	void insert (string line) {
+	bag_t (string line) {
 
 		innerBag_t tmp;
 
@@ -46,8 +41,9 @@ class bag_t {
 			});
 	}
 
-	// Resetting the list
-	void clear () { innerBags.clear(); }
+	public:
+	string bag;						// The bag itself
+	vector<innerBag_t> innerBags;	// All its inner bags (if any)
 };
 
 bag_t getBag (string bagName);
@@ -85,17 +81,13 @@ int main (int argc, char *argv[]) {
 
 	int64_t result[2] = {0};
 
-	bag_t tmpBag;						// Temporary customs declaration form
 	string tmpLine;						// Used for line-by-line reading
 
 	cout << endl;
 	cout << "Reading and parsing input..." << endl;
 
-	while (getline(input, tmpLine, '\n')) {
-		tmpBag.insert(tmpLine);
-		list.push_back(tmpBag);
-		tmpBag.clear();
-	}
+	while (getline(input, tmpLine, '\n'))
+		list.push_back(bag_t(tmpLine));
 
 	input.close();
 
@@ -127,7 +119,7 @@ int main (int argc, char *argv[]) {
 
 bag_t getBag (string bagName) {				// A kind of binary search
 	int min = 0, index, max = list.size();
-	for (int count = 0; count < 20; ++ count) {
+	while (true) {
 		index = (min + max) / 2;
 		if (list[index].bag == bagName)
 			return list[index];

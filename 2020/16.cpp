@@ -7,19 +7,8 @@ using namespace std;
 
 class field_t {
 
-	private:
-	typedef struct {
-		int min;
-		int max;
-	} range_t;
-
 	public:
-	string type;
-	range_t firstRange;
-	range_t secondRange;
-
-	public:
-	void initialize (string line) {
+	field_t (string line) {
 		type = line.substr(0, line.find(":"));
 		line = line.substr(type.size()+2, line.size());
 		firstRange.min = stoi(line.substr(0, line.find("-")));
@@ -30,16 +19,25 @@ class field_t {
 		line = line.substr(line.find("-")+1, line.size());
 		secondRange.max = stoi(line);
 	}
+
+	private:
+	typedef struct {
+		int min;
+		int max;
+	} range_t;
+
+	public:
+	string type;
+	range_t firstRange;
+	range_t secondRange;
 };
 
 class ticket_t {
 
-	private:
-	vector<int> fields;
-	bool valid;
-
 	public:
-	void initialize (string line) {
+	ticket_t () {}
+
+	ticket_t (string line) {
 		valid = true;
 		while (line.find(",") != string::npos) {
 			fields.push_back(stoi(line.substr(0, line.find(","))));
@@ -48,9 +46,12 @@ class ticket_t {
 		fields.push_back(stoi(line));
 	}
 
-	bool isValid () { return valid; }
+	private:
+	vector<int> fields;
+	bool valid;
 
-	void clear () { fields.clear(); }
+	public:
+	bool isValid () { return valid; }
 	
 	int checkValidity (vector<field_t> &ticketFields) {
 		bool correct;
@@ -135,10 +136,8 @@ int main (int argc, char *argv[]) {
 	int64_t result[2] = {0};
 
 	vector<field_t> fields;
-	field_t tmpField;
 	vector<ticket_t> tickets;
 	ticket_t myTicket;
-	ticket_t tmpTicket;
 	vector<match_t> matches;
 	match_t tmpMatch;
 	string tmpLine;
@@ -154,8 +153,7 @@ int main (int argc, char *argv[]) {
 			tmpLine = tmpLine.substr(0, tmpLine.size()-1);
 		if (tmpLine.empty())
 			break;
-		tmpField.initialize(tmpLine);
-		fields.push_back(tmpField);
+		fields.push_back(field_t(tmpLine));
 	}
 
 	// Getting my ticket
@@ -163,7 +161,7 @@ int main (int argc, char *argv[]) {
 	getline(input, tmpLine, '\n');
 	if (tmpLine[tmpLine.size()-1] == '\r')
 		tmpLine = tmpLine.substr(0, tmpLine.size()-1);
-	myTicket.initialize(tmpLine);
+	myTicket = ticket_t(tmpLine);
 
 	// Getting all the other tickets 
 	getline(input, tmpLine, '\n');
@@ -171,9 +169,7 @@ int main (int argc, char *argv[]) {
 	while (getline(input, tmpLine, '\n')) {
 		if (tmpLine[tmpLine.size()-1] == '\r')
 			tmpLine = tmpLine.substr(0, tmpLine.size()-1);
-		tmpTicket.initialize(tmpLine);
-		tickets.push_back(tmpTicket);
-		tmpTicket.clear();
+		tickets.push_back(ticket_t(tmpLine));
 	}
 
 	input.close();

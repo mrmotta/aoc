@@ -8,14 +8,19 @@ using namespace std;
 class adaptor_t {
 
 	public:
-	int output;					// The number itself
-	int64_t cost;				// The cost used for part 2
+	adaptor_t (int outputVoltage) {
+		output = outputVoltage;
+		cost = 0;
+	}
 
-	public:						// General setter
-	void set (string number) {
+	adaptor_t (string number) {
 		output = stoi(number);
 		cost = 0;
 	}
+
+	public:
+	int output;					// The number itself
+	int64_t cost;				// The cost used for part 2
 };
 
 int main (int argc, char *argv[]) {
@@ -50,22 +55,17 @@ int main (int argc, char *argv[]) {
 	vector<adaptor_t> list;
 
 	string tmpNumber;				// Temporary string used to parse the input
-	adaptor_t tmpAdaptor;			// Temporary adaptor used to parse the input
 	int differences[2] = {0};		// Used for part 1
 
 	cout << endl;
 	cout << "Reading and parsing input..." << endl;
 
 	// Inserting the starting point (charging outlet)
-	tmpAdaptor.output = 0;
-	tmpAdaptor.cost = 0;
-	list.push_back(tmpAdaptor);
+	list.push_back(adaptor_t(0));
 
 	// Reading all the other adapters
-	while (input >> tmpNumber) {
-		tmpAdaptor.set(tmpNumber);
-		list.push_back(tmpAdaptor);
-	}
+	while (input >> tmpNumber)
+		list.push_back(adaptor_t(tmpNumber));
 
 	input.close();
 

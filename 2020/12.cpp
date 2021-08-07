@@ -9,12 +9,7 @@ typedef enum {NORTH, EAST, SOUTH, WEST, LEFT, RIGHT, FORWARD} action_t;
 class instruction_t {
 
 	public:
-	action_t action;			// The action itself
-	int value;					// The value related
-
-	public:
-	// Setter	
-	void insert (string instruction) {
+	instruction_t (string instruction) {
 		switch (instruction[0]) {
 			case 'N': action = NORTH; break;
 			case 'E': action = EAST; break;
@@ -26,6 +21,10 @@ class instruction_t {
 		}
 		value = stoi(instruction.substr(1, instruction.size()));
 	}
+
+	public:
+	action_t action;			// The action itself
+	int value;					// The value related
 };
 
 int main (int argc, char *argv[]) {
@@ -59,7 +58,6 @@ int main (int argc, char *argv[]) {
 
 	vector<instruction_t> list;
 	string tmpString;				// Temporary string used to parse the input
-	instruction_t tmpInstruction;	// Temporary instruction used to parse the 
 	action_t facing = EAST;			// Starting facing direction
 	int tmpInt;						// Used for rotating the ship
 	int64_t position[2] = {0};		// East-West and Noth-South position of the ship
@@ -68,10 +66,8 @@ int main (int argc, char *argv[]) {
 	cout << endl;
 	cout << "Reading and parsing input..." << endl;
 
-	while (input >> tmpString) {
-		tmpInstruction.insert(tmpString);
-		list.push_back(tmpInstruction);
-	}
+	while (input >> tmpString)
+		list.push_back(instruction_t(tmpString));
 
 	input.close();
 	

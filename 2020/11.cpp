@@ -6,13 +6,8 @@ using namespace std;
 
 class cell_t {
 
-	private:					// Cell data
-	bool seat;
-	bool occupied;
-
 	public:
-	// Setters
-	void set (char cell) {
+	cell_t (char cell) {
 		if (cell == '.') {
 			seat = false;
 			occupied = false;
@@ -25,6 +20,11 @@ class cell_t {
 		}
 	}
 
+	private:					// Cell data
+	bool seat;
+	bool occupied;
+
+	public:
 	void changeState () { occupied = !occupied; }
 
 	// Getters
@@ -74,17 +74,14 @@ int main (int argc, char *argv[]) {
 
 	string tmpString;				// Temporary string used to parse the input
 	vector<cell_t> tmpLine;			// Temporary line used to parse the input
-	cell_t tmpCell;					// Temporary cell used to parse the input
 	// int occupiedSeats;					// Counts the number of occupied seats
 
 	cout << endl;
 	cout << "Reading and parsing input..." << endl;
 
 	while (input >> tmpString) {
-		for (char cell: tmpString) {
-			tmpCell.set(cell);
-			tmpLine.push_back(tmpCell);
-		}
+		for (char cell: tmpString)
+			tmpLine.push_back(cell_t(cell));
 		originalList.push_back(tmpLine);
 		tmpLine.clear();
 	}

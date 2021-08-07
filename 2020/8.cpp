@@ -9,16 +9,16 @@ typedef enum {ACC, JMP, NOP} operation_t;
 class instruction_t {
 
 	public:
-	operation_t operation;		// The operation type
-	int argument;				// The argument itself
-	bool executed;				// Useful to know if I've already executed it
-
-	public:
-	void insert (string op, string arg) {
+	instruction_t (string op, string arg) {
 		setOperation(op);
 		setArgument(arg);
 		executed = false;
 	}
+
+	public:
+	operation_t operation;		// The operation type
+	int argument;				// The argument itself
+	bool executed;				// Useful to know if I've already executed it
 
 	private:
 	// Setters
@@ -67,7 +67,6 @@ int main (int argc, char *argv[]) {
 
 	int64_t result[2] = {0};
 
-	instruction_t tmpInstruction;	// Temporary instruction used for parsing
 	string tmpOperation, tmpArgument;
 	int index;						// Used for simulating the instructions in part 1
 
@@ -76,8 +75,7 @@ int main (int argc, char *argv[]) {
 
 	while (input >> tmpOperation) {
 		input >> tmpArgument;
-		tmpInstruction.insert(tmpOperation, tmpArgument);
-		list.push_back(tmpInstruction);
+		list.push_back(instruction_t(tmpOperation, tmpArgument));
 	}
 
 	input.close();
