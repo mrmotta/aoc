@@ -110,7 +110,7 @@ int recursiveCombat (queue<int> deck[]) {
 		tmpDeck[0] = deck[0];
 		tmpDeck[1] = deck[1];
 
-		hash = calculateResult(tmpDeck, 0) * calculateResult(tmpDeck, 1);
+		hash = (calculateResult(tmpDeck, 0) << 32) + calculateResult(tmpDeck, 1);
 
 		if (configurations.find(hash) != configurations.end())
 			return 0;
