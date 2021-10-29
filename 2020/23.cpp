@@ -9,16 +9,8 @@
 
 using namespace std;
 
-typedef struct element {
-	long int number;
-	struct element *previous;
-	struct element *next;
-} item_t;
-
-item_t * prepareList(string line, vector<item_t *> &positions);
-void addItems(item_t *list, vector<item_t *> &positions);
-void cleanList(item_t *list);
-void process (item_t *list, vector<item_t *> &positions, const long int loopIterations, const long int maxPosition);
+void prepareList(vector<unsigned long int> &list, string line, const int part);
+void process (vector<unsigned long int> &list, int start, const long int loopIterations, const long int maxPosition);
 
 int main (int argc, char *argv[]) {
 
@@ -49,42 +41,44 @@ int main (int argc, char *argv[]) {
 
 	int64_t result[2] = {0};
 	string line;
-	string tmpResult;
-	vector<item_t *> positions(PART_2_ITEMS);
-	item_t *list = NULL;
-	item_t *current;
+	vector<unsigned long int> list(PART_2_ITEMS);
+	int current;
+	int start;
 
 	cout << endl;
 	cout << "Reading and parsing input..." << endl;
 
 	input >> line;
+	start = line[0] - '1';
 	input.close();
 
 	cout << "Processing input..." << endl;
 
 	// Part 1
 
-	list = prepareList(line, positions);
+	prepareList(list, line, 1);
 
-	process(list, positions, PART_1_ITERATIONS, PART_1_ITEMS - 1);
+	process(list, start, PART_1_ITERATIONS, PART_1_ITEMS - 1);
 
-	current = positions[0]->next;
-	for (int index = 0; index < PART_1_ITEMS - 1; ++ index) {
-		tmpResult.push_back(current->number + '0');
-		current = current->next;
+	current = list[0];
+	for (int index = 1; index < PART_1_ITEMS; ++ index) {
+		result[0] = result[0] * 10 + current + 1;
+		current = list[current];
 	}
-	result[0] = stoll(tmpResult);
 
 	// Part 2
 
-	cleanList(list);
-	list = prepareList(line, positions);
-	current = list;
-	addItems(list, positions);
+	prepareList(list, line, 2);
 
-	process(list, positions, PART_2_ITERATIONS, PART_2_ITEMS - 1);
+	current = list[0];
+	for (int index = 1; index < PART_1_ITEMS; ++ index) {
+		result[1] = result[1] * 10 + current + 1;
+		current = list[current];
+	}
 
-	result[1] = (unsigned long long int) positions[0]->next->number * positions[0]->next->next->number;
+	process(list, start, PART_2_ITERATIONS, PART_2_ITEMS - 1);
+
+	result[1] = (unsigned long long int) (list[0] + 1) * (list[list[0]] + 1);
 
 	cout << endl;
 	cout << "Results:" << endl;
@@ -94,88 +88,51 @@ int main (int argc, char *argv[]) {
 	return 0;
 }
 
-item_t * prepareList(string line, vector<item_t *> &positions) {
+void prepareList(vector<unsigned long int> &list, string line, const int part) {
 
-	item_t *list = NULL;
-	item_t *current;
+	int start = line[0] - '1';
+	long int current = start;
 
-	for (char number: line) {
-		if (list == NULL) {
-			list = new item_t();
-			current = list;
-		} else {
-			current->next = new item_t();
-			current->next->previous = current;
-			current = current->next;
+	for (int index = 1; index < line.length(); ++ index) {
+		list[current] = line[index] - '1';
+		current = list[current];
+	}
+
+	if (part == 2) {
+		for (long number = PART_1_ITEMS; number < PART_2_ITEMS; ++ number) {
+			list[current] = number;
+			current = number;
 		}
-		current->number = number - '0';
-		positions[current->number - 1] = current;
-		current->next = list;
-		list->previous = current;
 	}
 
-	return list;
+	list[current] = start;
 }
 
-void addItems(item_t *list, vector<item_t *> &positions) {
-
-	item_t *current = list->previous;
-
-	for (long number = PART_1_ITEMS + 1; number <= PART_2_ITEMS; ++ number) {
-		current->next = new item_t();
-		current->next->previous = current;
-		current = current->next;
-		current->number = number;
-		positions[current->number - 1] = current;
-		current->next = list;
-		list->previous = current;
-	}
-}
-
-void cleanList(item_t *list) {
-
-	item_t *cursor = list;
-	item_t *tmp;
-
-	list->previous->next = NULL;
-
-	while (cursor != NULL) {
-		tmp = cursor;
-		cursor = cursor->next;
-		delete tmp;
-	}
-}
-
-void process (item_t *list, vector<item_t *> &positions, const long int loopIterations, const long int maxPosition) {
+void process (vector<unsigned long int> &list, int start, const long int loopIterations, const long int maxPosition) {
 
 	long int position;
-	item_t *tmpList[2];
-	item_t *current = list;
-	item_t *tmp;
+	long int current = start;
+	long int tmpList;
 
 	for (int index = 0; index < loopIterations; ++ index) {
 
 		// Picking up cups
-		tmpList[0] = current->next;
-		tmpList[1] = tmpList[0]->next->next;
-		current->next = tmpList[1]->next;
-		tmpList[1]->next->previous = current;
+		tmpList = list[current];
+		list[current] = list[list[list[list[current]]]];
 
 		// Calculating position where to put cups
-		tmp = current;
+		position = current;
 		do {
-			position = tmp->number - 2;
+			-- position;
 			if (position == -1)
 				position = maxPosition;
-			tmp = positions[position];
-		} while (tmpList[0] == tmp || tmpList[0]->next == tmp || tmpList[1] == tmp);
+		} while (tmpList == position || list[tmpList] == position || list[list[tmpList]] == position);
 
 		// Putting back cups
-		tmpList[1]->next = tmp->next;
-		tmp->next->previous = tmpList[1];
-		tmpList[0]->previous = tmp;
-		tmp->next = tmpList[0];
+		list[list[list[tmpList]]] = list[position];
+		list[position] = tmpList;
 
-		current = current->next;
+		// Moving to next cup
+		current = list[current];
 	}
 }
