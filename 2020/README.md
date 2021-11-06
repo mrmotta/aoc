@@ -2,7 +2,7 @@
 
 ## Progress
 
-	[################################################--] 96%
+	[##################################################] 100%
 
 
 ## Results
@@ -35,7 +35,7 @@ Day                                        | First part       | Second Part
 [22](https://adventofcode.com/2020/day/22) | `33680`          | `33683`
 [23](https://adventofcode.com/2020/day/23) | `72496583`       | `41785843847`
 [24](https://adventofcode.com/2020/day/24) | `232`            | `3519`
-[25](https://adventofcode.com/2020/day/25) |                  | 
+[25](https://adventofcode.com/2020/day/25) | `9420461`        | There was no second part
 
 ## Compiling
 
